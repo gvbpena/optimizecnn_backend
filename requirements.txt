@@ -1,4 +1,5 @@
-fastapi==latest_version
+fastapi==0.98.0
+
 json==latest_version
 joblib==latest_version
 keras==latest_version
