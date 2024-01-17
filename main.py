@@ -7,6 +7,8 @@ from fastapi import FastAPI, File, UploadFile
 import joblib
 import json
 from fastapi.middleware.cors import CORSMiddleware
+import os
+os.environ["CUDA_VISIBLE_DEVICES"] = "-1"  # Disable GPU usage
 
 app = FastAPI()
 
@@ -28,10 +30,8 @@ async def classify_music_post(file: UploadFile = File(...)):
     rf_classifier_optimized = joblib.load('./cnn_models/optimized_rf_model.joblib')
     improved_cnn_model = load_model('./cnn_models/improved_cnn_model.h5')
     weights = [0.2, 0.2, 0.6]
-
     # Read the contents of the file
     contents = await file.read()
-
     # You can save the file if needed
     with open("uploaded_file.wav", "wb") as f:
         f.write(contents)
@@ -41,21 +41,6 @@ async def classify_music_post(file: UploadFile = File(...)):
     result_optimize_cnn = optimize_cnn_model(testing_feature, svm_classifier_optimized, rf_classifier_optimized, improved_cnn_model, weights, label_dict)
     result_cnn = evaluate_cnn_model(testing_feature, improved_cnn_model, label_dict)
     return classify_music(result_optimize_cnn, result_cnn)
-# @app.post("/classify_music/")
-# async def classify_music_post(file_location: str):
-#     with open('./cnn_models/label_dict.json', 'r') as json_file:
-#         label_dict = json.load(json_file)
-#     svm_classifier_optimized = joblib.load('./cnn_models/optimized_svm_model.joblib')
-#     rf_classifier_optimized = joblib.load('./cnn_models/optimized_rf_model.joblib')
-#     improved_cnn_model = load_model('./cnn_models/improved_cnn_model.h5')
-#     weights = [0.2, 0.2, 0.6] 
-#     normalized_weights = np.array(weights) / sum(weights)
-#     # Extract features from testing.wav
-#     testing_file_path = file_location  # Replace with the actual path
-#     testing_feature = extract_features(testing_file_path)
-#     result_optimize_cnn = optimize_cnn_model(testing_feature, svm_classifier_optimized, rf_classifier_optimized, improved_cnn_model, normalized_weights, label_dict)
-#     result_cnn = evaluate_cnn_model(testing_feature, improved_cnn_model, label_dict)
-#     return classify_music(result_optimize_cnn, result_cnn)
 
 @app.get("/classify_music/")
 async def classify_music_endpoint():
@@ -83,3 +68,7 @@ async def classify_music_endpoint():
     result_optimize_cnn = optimize_cnn_model(testing_feature, svm_classifier_optimized, rf_classifier_optimized, improved_cnn_model, normalized_weights, label_dict)
     result_cnn = evaluate_cnn_model(testing_feature, improved_cnn_model, label_dict)
     return classify_music(result_optimize_cnn, result_cnn)
+
+if __name__ == "__main__":
+    import uvicorn
+    uvicorn.run(app, host="127.0.0.1", port=8000, reload=True)
