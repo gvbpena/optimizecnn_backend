@@ -1,0 +1,5 @@
+fastapi==latest_version
+json==latest_version
+joblib==latest_version
+keras==latest_version
+librosa==latest_version
