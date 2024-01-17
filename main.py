@@ -69,6 +69,6 @@ async def classify_music_endpoint():
     result_cnn = evaluate_cnn_model(testing_feature, improved_cnn_model, label_dict)
     return classify_music(result_optimize_cnn, result_cnn)
 
-if __name__ == "__main__":
-    import uvicorn
-    uvicorn.run(app, host="127.0.0.1", port=8000, reload=True)
+# if __name__ == "__main__":
+#     import uvicorn
+#     uvicorn.run(app, host="127.0.0.1", port=8000, reload=True)
