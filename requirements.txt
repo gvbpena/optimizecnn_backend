@@ -3,7 +3,7 @@ joblib
 keras
 librosa
 uvicorn
-# tensorflow
+tensorflow
 json5
 scikeras
 python-multipart
