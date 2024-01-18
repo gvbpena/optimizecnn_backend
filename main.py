@@ -8,7 +8,7 @@ import joblib
 import json
 from fastapi.middleware.cors import CORSMiddleware
 import os
-os.environ["CUDA_VISIBLE_DEVICES"] = "-1"  # Disable GPU usage
+os.environ["TF_ENABLE_ONEDNN_OPTS"] = "0"
 
 app = FastAPI()
 

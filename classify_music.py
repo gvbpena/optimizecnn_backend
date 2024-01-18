@@ -1,14 +1,6 @@
-import os
 import numpy as np
-from sklearn.model_selection import train_test_split, GridSearchCV
-from sklearn.ensemble import RandomForestClassifier
-from sklearn.svm import SVC
-from sklearn.metrics import accuracy_score
-from keras.models import Sequential, load_model
-from keras.layers import Conv1D, MaxPooling1D, Flatten, Dense, Dropout
 from keras.utils import to_categorical
 import librosa
-import joblib
 import json
 def extract_features(file_path):
     try:
