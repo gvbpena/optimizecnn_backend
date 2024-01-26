@@ -12,7 +12,7 @@ os.environ["TF_ENABLE_ONEDNN_OPTS"] = "0"
 
 app = FastAPI()
 
-origins = [ "http://localhost:3000","https://optimizedcnn.vercel.app/"]
+origins = [ "http://localhost:3000","https://optimizedcnn.vercel.app"]
 
 app.add_middleware(
     CORSMiddleware,
