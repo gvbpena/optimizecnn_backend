@@ -9,3 +9,4 @@ scikeras
 python-multipart
 pydub
 numpy
+scikit-learn
