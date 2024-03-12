@@ -19,7 +19,7 @@ app.add_middleware(
     allow_methods=["*"],  # Allow all HTTP methods (adjust as required)
     allow_headers=["*"],  # Allow all headers (adjust as required)
 )
-
+os.environ["TF_ENABLE_ONEDNN_OPTS"] = "0"
 @app.post("/classify_music/")
 async def classify_music_post(file: UploadFile = File(...)):
     """Classifies uploaded music using the classify_music function.
