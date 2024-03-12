@@ -14,8 +14,7 @@ def extract_features(file_path):
         spectral_contrast = librosa.feature.spectral_contrast(y=audio, sr=22050)
         tonnetz = librosa.feature.tonnetz(y=audio, sr=22050)
         features = np.vstack([mfccs, chroma, spectral_contrast, tonnetz])
-        mean_features = np.mean(features.T, axis=0)
-        return mean_features
+        return np.mean(features.T, axis=0)
     except Exception as e:
         print(f"Error encountered while parsing file '{file_path}': {e}")
         return None
