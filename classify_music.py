@@ -79,8 +79,8 @@ def classify_music(file_path):
         predicted_percentages_ensemble[genre] = float(percentage) * 100
     # Create a dictionary for the JSON result
     json_result_ensemble = {
-        "Predicted Genre (XGB)": predicted_genre_ensemble,
-        "Predicted Percentages (XGB)": predicted_percentages_ensemble
+        "Predicted Genre (OCNN)": predicted_genre_ensemble,
+        "Predicted Percentages (OCNN)": predicted_percentages_ensemble
     }
     merged_json_result = {"CNN": json_result_cnn, "OCNN": json_result_ensemble}
     return merged_json_result
