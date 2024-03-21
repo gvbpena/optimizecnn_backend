@@ -77,10 +77,22 @@ def classify_music(file_path):
     # Loop through each genre and its corresponding probability
     for genre, percentage in zip(genre_names.values(), predicted_probabilities_ensemble):
         predicted_percentages_ensemble[genre] = float(percentage) * 100
-    # Create a dictionary for the JSON result
-    json_result_ensemble = {
-        "Predicted Genre (OCNN)": predicted_genre_ensemble,
-        "Predicted Percentages (OCNN)": predicted_percentages_ensemble
+    # Sort predicted percentages for CNN model
+    sorted_cnn_predictions = sorted(predicted_percentages.items(), key=lambda x: x[1], reverse=True)
+    sorted_cnn_predictions = {genre: percentage for genre, percentage in sorted_cnn_predictions}
+    # Sort predicted percentages for ensemble model
+    sorted_ensemble_predictions = sorted(predicted_percentages_ensemble.items(), key=lambda x: x[1], reverse=True)
+    sorted_ensemble_predictions = {genre: percentage for genre, percentage in sorted_ensemble_predictions}
+    # Create sorted JSON result for CNN model
+    sorted_json_result_cnn = {
+        "Predicted Genre (CNN)": predicted_genre,
+        "Predicted Percentages (CNN)": sorted_cnn_predictions
     }
-    merged_json_result = {"CNN": json_result_cnn, "OCNN": json_result_ensemble}
+    # Create sorted JSON result for ensemble model
+    sorted_json_result_ensemble = {
+        "Predicted Genre (OCNN)": predicted_genre_ensemble,
+        "Predicted Percentages (OCNN)": sorted_ensemble_predictions
+    }
+    # Merge sorted JSON results
+    merged_json_result = {"CNN": sorted_json_result_cnn, "OCNN": sorted_json_result_ensemble}
     return merged_json_result
