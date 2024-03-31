@@ -23,9 +23,7 @@ def classify_music(file_path):
     # Load data and models from the saved folder
     # y_test = np.load(os.path.join(saved_folder, 'y_test.npy'))
     cnn_model = load_model(os.path.join(saved_folder, 'cnn_model.h5'))
-    cnn_model.compile(optimizer='adam', loss='categorical_crossentropy', metrics=['accuracy'])  # Compile the CNN model
     baseline_cnn_model = load_model(os.path.join(saved_folder, 'baseline_cnn_model.h5'))
-    baseline_cnn_model.compile(optimizer='adam', loss='categorical_crossentropy', metrics=['accuracy'])  # Compile the baseline CNN model
     rf_model = joblib.load(os.path.join(saved_folder, 'rf_model.joblib'))
     svm_model = joblib.load(os.path.join(saved_folder, 'svm_model.joblib'))
     xgb_model = joblib.load(os.path.join(saved_folder, 'xgb_model.joblib'))
